@@ -6,7 +6,7 @@ if [ ! -z $1 ]; then
   ARCH=$1
 fi
 
-VERSION="0.4.0"
+VERSION="0.5.1"
 OS=`uname`
 [ ! -z "$ARCH" ] || ARCH=`uname -m`
 BUILD_NAME="lisk-$VERSION-$OS-$ARCH"
@@ -20,22 +20,31 @@ LISK_NETWORK="main"
 LISK_URL="http://downloads.lisk.io/lisk/$LISK_NETWORK/$VERSION/$LISK_FILE"
 LISK_CONFIG=""
 
-LISK_NODE_DIR="lisk-node-0.12.16-lisk"
+LISK_NODE_DIR="lisk-node-0.12.17-lisk"
 LISK_NODE_FILE="$LISK_NODE_DIR.tar.gz"
-LISK_NODE_URL="https://github.com/LiskHQ/lisk-node/archive/v0.12.16-lisk.tar.gz"
+LISK_NODE_URL="https://github.com/LiskHQ/lisk-node/archive/v0.12.17-lisk.tar.gz"
 LISK_NODE_OUT="out/Release/node"
 LISK_NODE_CONFIG=""
 
-NODE_DIR="node-v0.12.16"
+NODE_DIR="node-v0.12.17"
 NODE_FILE="$NODE_DIR.tar.gz"
-NODE_URL="https://nodejs.org/download/release/v0.12.16/$NODE_FILE"
+NODE_URL="https://nodejs.org/download/release/v0.12.17/$NODE_FILE"
 NODE_OUT="compiled"
 NODE_CONFIG=""
 
-POSTGRESQL_DIR="postgresql-9.5.2"
+POSTGRESQL_DIR="postgresql-9.6.1"
 POSTGRESQL_FILE="$POSTGRESQL_DIR.tar.gz"
-POSTGRESQL_URL="https://ftp.postgresql.org/pub/source/v9.5.2/$POSTGRESQL_FILE"
+POSTGRESQL_URL="https://ftp.postgresql.org/pub/source/v9.6.1/$POSTGRESQL_FILE"
 POSTGRESQL_OUT="pgsql"
+
+SODIUM_DIR="libsodium-1.0.11"
+SODIUM_FILE="$SODIUM_DIR.tar.gz"
+SODIUM_URL="https://download.libsodium.org/libsodium/releases/$SODIUM_FILE"
+SODIUM_OUT="compiled"
+
+NODE_SODIUM_DIR="node-sodium-master"
+NODE_SODIUM_FILE="$NODE_SODIUM_DIR.tar.gz"
+NODE_SODIUM_URL="https://github.com/LiskHQ/node-sodium/archive/master.tar.gz"
 
 NPM_CLI="$BUILD_NAME/lib/node_modules/npm/bin/npm-cli.js"
 
@@ -65,6 +74,7 @@ if [ "$ARCH" == "armv6l" ]; then
   LISK_NODE_CONFIG="--without-snapshot --dest-cpu=arm --dest-os=linux --without-npm --with-arm-float-abi=hard"
   NODE_CONFIG="--without-snapshot --dest-cpu=arm --dest-os=linux --with-arm-float-abi=hard"
   POSTGRESQL_CONFIG="--host=arm-linux --without-readline --without-zlib --disable-spinlocks"
+  SODIUM_CONFIG="--host=arm-linux"
 fi
 
 if [ "$ARCH" == "armv7l" ]; then
@@ -82,6 +92,7 @@ if [ "$ARCH" == "armv7l" ]; then
   LISK_NODE_CONFIG="--without-snapshot --dest-cpu=arm --dest-os=linux --without-npm --with-arm-float-abi=hard"
   NODE_CONFIG="--without-snapshot --dest-cpu=arm --dest-os=linux --with-arm-float-abi=hard"
   POSTGRESQL_CONFIG="--host=arm-linux --without-readline --without-zlib --disable-spinlocks"
+  SODIUM_CONFIG="--host=arm-linux"
 fi
 
 if [ "$TARGET" != "" ]; then
